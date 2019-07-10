@@ -63,6 +63,7 @@ public class RoleController {
         ModelAndView mv = new ModelAndView("role-look");
         Role rl =serviceinter.lookOneById(id);
         mv.addObject("ROLE",rl);
+        System.out.println("aa");
         return mv;
     }
     /*更新角色*/
