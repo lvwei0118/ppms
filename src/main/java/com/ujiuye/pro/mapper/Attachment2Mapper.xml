@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ujiuye.pro.mapper.Attachment2Mapper" >
+  <resultMap id="BaseResultMap" type="com.ujiuye.pro.bean.AttachmentJion" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pro_fk" property="proFk" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="attname" property="attname" jdbcType="VARCHAR" />
+    <result column="attdis" property="attdis" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="listAInfo" resultMap="BaseResultMap">
+  SELECT COUNT(*) AS num,ATTACHMENT.*,PROJECT.pname
+  FROM ATTACHMENT,PROJECT
+  WHERE ATTACHMENT.pro_fk=PROJECT.pid
+  GROUP BY attachment.pro_fk
+  </select>
+  <select id="findAInfoById" resultMap="BaseResultMap">
+  SELECT ATTACHMENT.*,PROJECT.pname
+  FROM ATTACHMENT,PROJECT
+  WHERE ATTACHMENT.pro_fk=PROJECT.pid
+  AND ATTACHMENT.id=#{id}
+  </select>
+</mapper>

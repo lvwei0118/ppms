@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	<!--增加作业类-->
+	<bean id="hj" class="com.ujiuye.tool.HolleJob"></bean>
+	<!--配置JobDetail-->
+	<bean id="job" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="hj"/>
+		<property name="targetMethod" value="run"/>
+		<property name="concurrent" value="false" /><!-- 作业不并发调度 -->
+	</bean>
+	<!--配置作业调度触发器
+	第一种SimpleTriggerFactoryBean，只支持按照一定频度调用任务，如每隔1分钟运行一次-->
+	<!--<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="job" />
+		<property name="startDelay" value="0" />&lt;!&ndash; 调度工厂实例化后，经过0秒开始执行调度 &ndash;&gt;
+		<property name="repeatInterval" value="2000" />&lt;!&ndash; 每60秒调度一次 &ndash;&gt;
+	</bean>-->
+	<!--配置作业调度触发器
+	第二种CronTriggerBean，支持到指定时间运行一次，如每天12:00运行一次等-->
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="job" />
+		<!--石英表达式-->
+		<!--<property name="cronExpression" value="0 0/1 14 * * ?" />--><!-- 从14点开始直到14点59分每隔1分钟运行一次 -->
+	</bean>
+	<!--配置调度中心-->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

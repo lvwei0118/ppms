@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ujiuye.pro.mapper.Module2Mapper" >
+  <resultMap id="BaseResultMap" type="com.ujiuye.pro.bean.ModuleJoin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="proname" property="proname" jdbcType="VARCHAR" />
+    <result column="analysis_fk" property="analysisFk" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="modname" property="modname" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="simpledis" property="simpledis" jdbcType="VARCHAR" />
+    <result column="detaileddis" property="detaileddis" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectMList" resultMap="BaseResultMap">
+  SELECT module.id,module.proname,module.analysis_fk,analysis.title,module.modname,module.level,module.simpledis,module.detaileddis,module.remark
+  FROM module,analysis
+  WHERE module.analysis_fk=analysis.id
+  </select>
+  <select id="findMInfoById" resultMap="BaseResultMap">
+  SELECT module.id,module.proname,module.analysis_fk,analysis.title,module.modname,module.level,module.simpledis,module.detaileddis,module.remark
+  FROM module,analysis
+  WHERE module.id=#{id}
+  AND module.analysis_fk=analysis.id
+  </select>
+  <select id="listMInfoByaf" resultMap="BaseResultMap">
+  SELECT module.id,module.proname,module.analysis_fk,module.modname,module.level,module.simpledis,module.detaileddis,module.remark
+  FROM module
+  WHERE module.analysis_fk=#{aid}
+  </select>
+</mapper>

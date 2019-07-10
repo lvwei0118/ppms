@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ujiuye.pro.mapper.Function2Mapper" >
+  <resultMap id="BaseResultMap" type="com.ujiuye.pro.bean.FunctionJion" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="proname" property="proname" jdbcType="VARCHAR" />
+    <result column="analysisname" property="analysisname" jdbcType="VARCHAR" />
+    <result column="modele_fk" property="modeleFk" jdbcType="INTEGER" />
+    <result column="modname" property="modname" jdbcType="VARCHAR" />
+    <result column="functionname" property="functionname" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="simpledis" property="simpledis" jdbcType="VARCHAR" />
+    <result column="detaileddis" property="detaileddis" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="listFInfo" resultMap="BaseResultMap">
+  SELECT function.*,module.modname
+  FROM FUNCTION,module
+  WHERE function.modele_fk=module.id
+  </select>
+  <select id="findFInfoById" resultMap="BaseResultMap">
+  SELECT function.*,module.modname
+  FROM FUNCTION,module
+  WHERE function.modele_fk=module.id
+  AND function.id=#{id}
+  </select>
+
+</mapper>

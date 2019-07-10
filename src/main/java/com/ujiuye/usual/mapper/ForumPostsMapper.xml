@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ujiuye.usual.mapper.ForumPostsMapper" >
+    <insert id="sendFor">
+    insert into forum (`tid`,
+	`title`,
+	`content`,
+	`postDate`
+	) values (null,#{title},#{content},#{postDate})
+    </insert>
+    <select id="listFInfo" resultType="com.ujiuye.usual.bean.ForumPosts">
+    select * from forum
+    </select>
+    <delete id="deleFInfo">
+    delete * from forum where tid=#{tid}
+    </delete>
+    <select id="selectFInfo" resultType="com.ujiuye.usual.bean.ForumPosts">
+        select * from forum where tid=#{tid}
+    </select>
+</mapper>

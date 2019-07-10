@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ujiuye.pro.mapper.Project2Mapper" >
+  <resultMap id="BaseResultMap" type="com.ujiuye.pro.bean.Project2" >
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="coname" property="coname" jdbcType="VARCHAR" />
+    <result column="comname" property="comname" javaType="INTEGER"/>
+    <result column="comper" property="comper" jdbcType="VARCHAR"/>
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+      <result column="empFk" property="empFk" jdbcType="INTEGER" />
+      <result column="empcount" property="empcount" jdbcType="INTEGER" />
+    <result column="starttime" property="starttime" jdbcType="DATE" />
+    <result column="buildtime" property="buildtime" jdbcType="DATE" />
+    <result column="cost" property="cost" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="endtime" property="endtime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <!--<association property="Employee" select="com.ujiuye.emp.mapper.EmployeeMapper.selectByPrimaryKey" column="emp_fk">
+    </association>
+    <association property="Customer" select="com.ujiuye.cus.mapper.CustomerMapper.selectByPrimaryKey" column="comname">
+    </association>-->
+  </resultMap>
+
+  <select id="listPInfo" resultMap="BaseResultMap">
+   SELECT project.pid,project.pname,customer.comname AS coname,project.comper,employee.ename,project.empcount,project.starttime,project.buildtime,project.endtime,project.remark
+    FROM project,customer,employee
+    WHERE project.comname=customer.id
+    AND project.emp_fk=employee.eid
+  </select>
+    <select id="findPInfoById" resultMap="BaseResultMap">
+  SELECT * FROM
+  (SELECT p.*,c.comname AS coname,e.ename FROM project p LEFT JOIN customer c ON p.comname = c.id LEFT JOIN employee e ON p.emp_fk = e.eid) p2
+  WHERE p2.pid=#{pid}
+    </select>
+
+</mapper>

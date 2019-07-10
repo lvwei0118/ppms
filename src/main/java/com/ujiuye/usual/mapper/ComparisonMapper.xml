@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ujiuye.usual.mapper.ComparisonMapper" >
+<insert id="insert">
+ insert into comparison values (null,#{company},#{targetmoney},#{year},#{business},#{priority},#{disadvantage},#{status},#{empCount},#{startTime},#{description},#{empFK})
+</insert>
+  <select id="listCInfo" resultType="com.ujiuye.usual.bean.Comparison">
+  select * from comparison
+  </select>
+    <select id="compare" resultType="com.ujiuye.usual.bean.Comparison">
+      select comparison.company,comparison.targetmoney from comparison
+    </select>
+</mapper>
